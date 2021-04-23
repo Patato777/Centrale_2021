@@ -1,0 +1,19 @@
+-- III. Enregistrement des scènes
+-- Q14.
+SELECT sc_nom FROM Scene HAVING EXTRACT(year FROM sc_creation)=2021
+
+-- Q15.
+SELECT sc_id, COUNT(*) FROM Scene JOIN Source ON Scene.sc_id=Source.sc_id GROUP BY sc_id
+
+-- Q16.
+SELECT ob_id, ob_x, ob_y, ob_z, sp_rayon FROM Objet 
+	JOIN Sphere ON ob_id=sp_id
+	JOIN Scene ON Objet.sc_id=Scene.sc_id
+	WHEN sc_nom='woodbox'
+
+-- Q17.
+SELECT Ob1.ob_id AS objr_id, so_id, Ob2.ob_id AS objo_id FROM Objet AS Ob1
+	JOIN Source ON Ob1.sc_id=Source.s_id
+	JOIN Objet AS Ob2 ON Ob1.sc_id = Ob2.sc_id
+	JOIN Scene ON Ob1.sc_id=Scene.sc_id
+	HAVING sc_nom='woodbox' AND OCCULTE(sc_id, objr_id, so_id, objo_id)
